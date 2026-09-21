@@ -142,22 +142,37 @@ function validar() {
 
     if (codigo === "bk12opf") {
 
-        resultado.innerHTML = `
-            <div class="valido">
-                <strong>✅ DIPLOMA VÁLIDO</strong>
+    resultado.innerHTML = `
+        <div class="valido">
+            <strong>✅ DIPLOMA VÁLIDO</strong>
 
-                <p>
-                    Código de validação:
-                    <strong>bk12opf</strong>
-                </p>
+            <p>
+                <strong>Nome:</strong><br>
+                Larissa Helena de Azevedo Mendes
+            </p>
 
-                <a href="diploma-teste.pdf" target="_blank">
-                    📄 ABRIR DIPLOMA
-                </a>
-            </div>
-        `;
+            <p>
+                <strong>Curso:</strong><br>
+                Direito
+            </p>
 
-    } else {
+            <p>
+                <strong>Instituição:</strong><br>
+                São Judas – Campus Unimonte
+            </p>
+
+            <p>
+                <strong>Código de validação:</strong><br>
+                bk12opf
+            </p>
+
+            <a href="diploma-teste.pdf" target="_blank">
+                📄 ABRIR DIPLOMA
+            </a>
+        </div>
+    `;
+
+} else {
 
         resultado.innerHTML = `
             <div class="invalido">
