@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validação de Diploma</title>
+<style>
+:root { --orange:#f47b20; --black:#111; --light:#f6f6f6; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Arial, sans-serif; background:var(--light); color:var(--black); }
+header { background:#111; color:white; padding:22px 7%; }
+header strong { font-size:22px; }
+header span { color:var(--orange); }
+main { min-height:calc(100vh - 75px); display:flex; justify-content:center; align-items:center; padding:40px 20px; }
+.card { background:white; width:100%; max-width:520px; padding:42px; border-radius:18px; box-shadow:0 10px 35px #0001; text-align:center; }
+h1 { margin:0 0 10px; font-size:30px; }
+p { color:#666; line-height:1.5; }
+input { width:100%; padding:16px; border:1px solid #ddd; border-radius:10px; font-size:17px; margin:15px 0; }
+button { width:100%; padding:16px; border:0; border-radius:10px; background:var(--orange); color:white; font-size:17px; font-weight:bold; cursor:pointer; }
+button:hover { opacity:.9; }
+#resultado { margin-top:22px; }
+.ok { background:#edf9f0; border:1px solid #b9e5c1; padding:18px; border-radius:12px; }
+.erro { background:#fff0f0; border:1px solid #f1b8b8; padding:18px; border-radius:12px; }
+a { color:var(--orange); font-weight:bold; }
+.small { font-size:13px; color:#888; margin-top:20px; }
+</style>
+</head>
+<body>
+<header><strong>Validação<span> de Diploma</span></strong></header>
+<main>
+<div class="card">
+<h1>Validar Diploma</h1>
+<p>Digite o código de validação presente no documento.</p>
+<input id="codigo" placeholder="Ex.: TESTE123" autocomplete="off">
+<button onclick="validar()">VALIDAR CÓDIGO</button>
+<div id="resultado"></div>
+<div class="small">Sistema de validação documental</div>
+</div>
+</main>
+<script>
+const documentos = {
+  "TESTE123": {
+    nome: "Diploma de Teste",
+    arquivo: "diploma-teste.pdf"
+  }
+};
+function validar() {
+  const codigo = document.getElementById("codigo").value.trim().toUpperCase();
+  const r = document.getElementById("resultado");
+  const doc = documentos[codigo];
+  if (!doc) {
+    r.innerHTML = '<div class="erro"><b>❌ Código não encontrado</b><br>Verifique o código informado e tente novamente.</div>';
+    return;
+  }
+  r.innerHTML = `<div class="ok"><b>✅ Código válido</b><br><br>
+  <b>${doc.nome}</b><br><br>
+  <a href="${doc.arquivo}" target="_blank">ABRIR DIPLOMA</a></div>`;
+}
+</script>
+</body>
+</html>
