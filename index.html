@@ -1,294 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validação de Diploma</title>
 
-<title>Validação de Diploma</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-* {
-    box-sizing: border-box;
-}
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 15px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(255, 102, 0, 0.25);
+    }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    color: #111;
-}
+    h1 {
+      color: #ff6600;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
 
-header {
-    background: #111;
-    color: white;
-    padding: 22px;
-    text-align: center;
-}
+    .subtitulo {
+      color: #ccc;
+      margin-bottom: 30px;
+      font-size: 15px;
+    }
 
-header strong {
-    font-size: 20px;
-}
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      background: #222;
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      outline: none;
+      margin-bottom: 15px;
+    }
 
-header span {
-    color: #f47b20;
-}
+    input:focus {
+      border-color: #ff6600;
+    }
 
-.container {
-    max-width: 520px;
-    margin: 70px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.10);
-    text-align: center;
-}
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #ff6600;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-h1 {
-    margin-top: 0;
-    font-size: 30px;
-}
+    button:hover {
+      background: #e65c00;
+    }
 
-p {
-    line-height: 1.5;
-}
+    #resultado {
+      margin-top: 25px;
+      text-align: left;
+    }
 
-input {
-    width: 100%;
-    padding: 15px;
-    margin: 20px 0 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-}
+    .dados {
+      background: #1b1b1b;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+    }
 
-button {
-    width: 100%;
-    padding: 15px;
-    background: #f47b20;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
+    .dados p {
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
 
-button:hover {
-    background: #d9630e;
-}
+    .dados strong {
+      color: #ff6600;
+    }
 
-#resultado {
-    margin-top: 25px;
-}
+    .botao-pdf {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: #ff6600;
+      color: #fff;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
 
-.valido {
-    padding: 25px;
-    background: #edf8ef;
-    border: 1px solid #b8dfbd;
-    border-radius: 10px;
-}
+    .botao-pdf:hover {
+      background: #e65c00;
+    }
 
-.invalido {
-    padding: 20px;
-    background: #fff0f0;
-    border: 1px solid #e0b5b5;
-    border-radius: 10px;
-}
-
-.info {
-    margin: 20px 0;
-}
-
-.info p {
-    margin: 16px 0;
-}
-
-a {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 14px 22px;
-    background: #f47b20;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-a:hover {
-    background: #d9630e;
-}
-
-.codigo {
-    font-family: monospace;
-    font-size: 18px;
-}
-
-</style>
-
+    .erro {
+      color: #ff5555;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-    <strong>
-        Validação <span>de Diploma</span>
-    </strong>
-</header>
+  <div class="container">
 
-<div class="container">
+    <h1>Validação de Diploma</h1>
 
-    <h1>Validar Diploma</h1>
-
-    <p>
-        Digite o código de validação presente no diploma.
+    <p class="subtitulo">
+      Digite o código de validação presente no diploma.
     </p>
 
     <input
-        type="text"
-        id="codigo"
-        placeholder="Digite o código"
-        autocomplete="off"
+      type="text"
+      id="codigo"
+      placeholder="Digite o código"
+      autocomplete="off"
     >
 
-    <button onclick="validar()">
-        VALIDAR CÓDIGO
+    <button onclick="validarDiploma()">
+      VALIDAR DIPLOMA
     </button>
 
     <div id="resultado"></div>
 
-</div>
+  </div>
 
-<script>
+  <script>
 
-const documentos = {
+    const documentos = {
 
-    "bk12opf": {
-
+      "bk12opf": {
         nome: "Larissa Helena de Azevedo Mendes",
-
         curso: "Direito",
-
         instituicao: "São Judas – Campus Unimonte",
+        codigo: "bk12opf",
+        arquivo: "DIPLOMA LARISSA.pdf"
+      }
 
-        arquivo: "diploma-teste.pdf"
-
-    }
-
-};
+    };
 
 
-function validar() {
+    function validarDiploma() {
 
-    const codigo = document
+      const codigo = document
         .getElementById("codigo")
         .value
         .trim()
         .toLowerCase();
 
-    const resultado =
-        document.getElementById("resultado");
+      const resultado = document.getElementById("resultado");
 
-    const documento =
-        documentos[codigo];
+      if (documentos[codigo]) {
 
-
-    if (documento) {
+        const diploma = documentos[codigo];
 
         resultado.innerHTML = `
+          <div class="dados">
 
-            <div class="valido">
+            <p>
+              <strong>Nome:</strong><br>
+              ${diploma.nome}
+            </p>
 
-                <strong>
-                    ✅ DIPLOMA VÁLIDO
-                </strong>
+            <p>
+              <strong>Curso:</strong><br>
+              ${diploma.curso}
+            </p>
 
-                <div class="info">
+            <p>
+              <strong>Instituição:</strong><br>
+              ${diploma.instituicao}
+            </p>
 
-                    <p>
-                        <strong>Nome:</strong><br>
-                        ${documento.nome}
-                    </p>
+            <p>
+              <strong>Código de validação:</strong><br>
+              ${diploma.codigo}
+            </p>
 
-                    <p>
-                        <strong>Curso:</strong><br>
-                        ${documento.curso}
-                    </p>
+            <a
+              class="botao-pdf"
+              href="${diploma.arquivo}"
+              target="_blank"
+            >
+              ABRIR DIPLOMA
+            </a>
 
-                    <p>
-                        <strong>Instituição:</strong><br>
-                        ${documento.instituicao}
-                    </p>
-
-                    <p>
-                        <strong>Código de validação:</strong><br>
-
-                        <span class="codigo">
-                            ${codigo}
-                        </span>
-
-                    </p>
-
-                </div>
-
-                <a
-                    href="${documento.arquivo}"
-                    target="_blank"
-                >
-                    📄 ABRIR DIPLOMA
-                </a>
-
-            </div>
-
+          </div>
         `;
 
-    } else {
+      } else {
 
         resultado.innerHTML = `
-
-            <div class="invalido">
-
-                <strong>
-                    ❌ CÓDIGO NÃO ENCONTRADO
-                </strong>
-
-                <p>
-                    Verifique o código informado
-                    e tente novamente.
-                </p>
-
-            </div>
-
+          <p class="erro">
+            Código não encontrado. Verifique o código informado.
+          </p>
         `;
 
+      }
     }
 
-}
 
+    const parametros = new URLSearchParams(window.location.search);
+    const codigoUrl = parametros.get("codigo");
 
-/*
-   VERIFICA SE O SITE FOI ABERTO
-   ATRAVÉS DE UM QR CODE
-   COM ?codigo=...
-*/
+    if (codigoUrl) {
+      document.getElementById("codigo").value = codigoUrl;
+      validarDiploma();
+    }
 
-const parametros =
-    new URLSearchParams(window.location.search);
-
-const codigoURL =
-    parametros.get("codigo");
-
-
-if (codigoURL) {
-
-    document.getElementById("codigo").value =
-        codigoURL;
-
-    validar();
-
-}
-
-</script>
+  </script>
 
 </body>
 </html>
