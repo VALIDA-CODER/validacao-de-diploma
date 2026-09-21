@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Validação de Diploma</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -25,6 +26,10 @@ header {
     text-align: center;
 }
 
+header strong {
+    font-size: 20px;
+}
+
 header span {
     color: #f47b20;
 }
@@ -41,6 +46,11 @@ header span {
 
 h1 {
     margin-top: 0;
+    font-size: 30px;
+}
+
+p {
+    line-height: 1.5;
 }
 
 input {
@@ -73,7 +83,7 @@ button:hover {
 }
 
 .valido {
-    padding: 20px;
+    padding: 25px;
     background: #edf8ef;
     border: 1px solid #b8dfbd;
     border-radius: 10px;
@@ -86,13 +96,34 @@ button:hover {
     border-radius: 10px;
 }
 
+.info {
+    margin: 20px 0;
+}
+
+.info p {
+    margin: 16px 0;
+}
+
 a {
     display: inline-block;
     margin-top: 15px;
-    color: #f47b20;
+    padding: 14px 22px;
+    background: #f47b20;
+    color: white;
+    border-radius: 8px;
     font-weight: bold;
     text-decoration: none;
 }
+
+a:hover {
+    background: #d9630e;
+}
+
+.codigo {
+    font-family: monospace;
+    font-size: 18px;
+}
+
 </style>
 
 </head>
@@ -100,35 +131,52 @@ a {
 <body>
 
 <header>
-    <strong>Validação <span>de Diploma</span></strong>
+    <strong>
+        Validação <span>de Diploma</span>
+    </strong>
 </header>
 
 <div class="container">
 
-```
-<h1>Validar Diploma</h1>
+    <h1>Validar Diploma</h1>
 
-<p>
-    Digite o código de validação presente no diploma.
-</p>
+    <p>
+        Digite o código de validação presente no diploma.
+    </p>
 
-<input
-    type="text"
-    id="codigo"
-    placeholder="Digite o código"
-    value=""
->
+    <input
+        type="text"
+        id="codigo"
+        placeholder="Digite o código"
+        autocomplete="off"
+    >
 
-<button onclick="validar()">
-    VALIDAR CÓDIGO
-</button>
+    <button onclick="validar()">
+        VALIDAR CÓDIGO
+    </button>
 
-<div id="resultado"></div>
-```
+    <div id="resultado"></div>
 
 </div>
 
 <script>
+
+const documentos = {
+
+    "bk12opf": {
+
+        nome: "Larissa Helena de Azevedo Mendes",
+
+        curso: "Direito",
+
+        instituicao: "São Judas – Campus Unimonte",
+
+        arquivo: "diploma-teste.pdf"
+
+    }
+
+};
+
 
 function validar() {
 
@@ -138,52 +186,106 @@ function validar() {
         .trim()
         .toLowerCase();
 
-    const resultado = document.getElementById("resultado");
+    const resultado =
+        document.getElementById("resultado");
 
-    if (codigo === "bk12opf") {
+    const documento =
+        documentos[codigo];
 
-    resultado.innerHTML = `
-        <div class="valido">
-            <strong>✅ DIPLOMA VÁLIDO</strong>
 
-            <p>
-                <strong>Nome:</strong><br>
-                Larissa Helena de Azevedo Mendes
-            </p>
-
-            <p>
-                <strong>Curso:</strong><br>
-                Direito
-            </p>
-
-            <p>
-                <strong>Instituição:</strong><br>
-                São Judas – Campus Unimonte
-            </p>
-
-            <p>
-                <strong>Código de validação:</strong><br>
-                bk12opf
-            </p>
-
-            <a href="diploma-teste.pdf" target="_blank">
-                📄 ABRIR DIPLOMA
-            </a>
-        </div>
-    `;
-
-} else {
+    if (documento) {
 
         resultado.innerHTML = `
+
+            <div class="valido">
+
+                <strong>
+                    ✅ DIPLOMA VÁLIDO
+                </strong>
+
+                <div class="info">
+
+                    <p>
+                        <strong>Nome:</strong><br>
+                        ${documento.nome}
+                    </p>
+
+                    <p>
+                        <strong>Curso:</strong><br>
+                        ${documento.curso}
+                    </p>
+
+                    <p>
+                        <strong>Instituição:</strong><br>
+                        ${documento.instituicao}
+                    </p>
+
+                    <p>
+                        <strong>Código de validação:</strong><br>
+
+                        <span class="codigo">
+                            ${codigo}
+                        </span>
+
+                    </p>
+
+                </div>
+
+                <a
+                    href="${documento.arquivo}"
+                    target="_blank"
+                >
+                    📄 ABRIR DIPLOMA
+                </a>
+
+            </div>
+
+        `;
+
+    } else {
+
+        resultado.innerHTML = `
+
             <div class="invalido">
-                <strong>❌ CÓDIGO NÃO ENCONTRADO</strong>
+
+                <strong>
+                    ❌ CÓDIGO NÃO ENCONTRADO
+                </strong>
 
                 <p>
-                    Verifique o código informado e tente novamente.
+                    Verifique o código informado
+                    e tente novamente.
                 </p>
+
             </div>
+
         `;
+
     }
+
+}
+
+
+/*
+   VERIFICA SE O SITE FOI ABERTO
+   ATRAVÉS DE UM QR CODE
+   COM ?codigo=...
+*/
+
+const parametros =
+    new URLSearchParams(window.location.search);
+
+const codigoURL =
+    parametros.get("codigo");
+
+
+if (codigoURL) {
+
+    document.getElementById("codigo").value =
+        codigoURL;
+
+    validar();
+
 }
 
 </script>
